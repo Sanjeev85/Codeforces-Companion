@@ -14,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Codeforces"
         tools:targetApi="31">
+
         <activity
-            android:name=".genericActivity"
+            android:name=".Screens.genericActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -23,7 +24,7 @@
         </activity>
         <activity
             android:name=".Screens.mainScreen"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -2,11 +2,14 @@ package com.example.codeforces.Screens
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import com.example.codeforces.R
 import com.example.codeforces.api.codeforcesApi
@@ -15,6 +18,7 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_image.*
 import java.io.IOException
 import com.example.codeforces.models.Result
+import com.example.codeforces.models.ResultX
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.item_add.*
@@ -25,12 +29,18 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 class mainScreen : AppCompatActivity() {
+    lateinit var sharedPref: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+    lateinit var gson: Gson
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
-        val sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        val gson = Gson()
+        Log.e("MAINSCREEN", "ENTERED")
+        // init
+        sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        editor = sharedPref.edit()
+        gson = Gson()
+
 
         // fetch shared Prefence Image
         val json = sharedPref.getString("json", "")
@@ -38,27 +48,75 @@ class mainScreen : AppCompatActivity() {
             json, Result::class.java
         )
         Log.e("inside mainScreen", obj.toString())
-        polulateResources(obj)
+        populateCurrentPage(obj)
 
+        // call all api's
+        GlobalScope.launch {
+            Log.e("Launced", "call Everything")
+            callEverything()
+        }
         //upComing Contests
         cc.setOnClickListener {
-            GlobalScope.launch {
-                withContext(Dispatchers.Main) {
-                    Log.e("CHAKRA", "UI")
-                    dlg()
-                    val api = codeforcesApi.create().getContestList().awaitResponse()
-                    if (api.isSuccessful) {
-                        for (i in 0..10) {
-                            Log.e("Success ", api.body()!!.result[i].toString())
-                        }
-                    }
+            val intent = Intent(this@mainScreen, genericActivity::class.java)
+            startActivity(intent)
+            finish()
+            /*  GlobalScope.launch {
+                  withContext(Dispatchers.Main) {
+                      Log.e("CHAKRA", "UI")
+                      dlg()
+                      val api = codeforcesApi.create().getContestList().awaitResponse()
+                      if (api.isSuccessful) {
+                          for (i in 0..10) {
+                              Log.e("Success ", api.body()!!.result[i].toString())
+                          }
+                      }
+                  }
+              }
 
-                }
-            }
+             */
+        }
+    }
 
+    private suspend fun callEverything() {
+        Log.e(TAG, "inside call everything")
+        val status = getUpcomingContest()
+        if (status == "UnSuccessful") {
+            Log.e("Status", "Success upcoming Contest")
+        }
+        /*
+        val contestArray = gson.toJson(upComingContests)
+        editor.apply {
+            putString("upcomingContest", contestArray)
+            apply()
         }
 
+         */
+    }
 
+    private suspend fun getUpcomingContest(): String {
+        Log.e(TAG, "Inside Upcoming Contest")
+        val upComingContests = ArrayList<ResultX>()
+        var flag = false
+        withContext(Dispatchers.Main) {
+            val api = codeforcesApi.create().getContestList().awaitResponse()
+            if (api.isSuccessful) {
+                flag = true
+                val allContests = api.body()!!.result
+                for (contest in allContests) {
+                    if (contest.phase == "BEFORE") {
+                        upComingContests.add(contest)
+                    }
+                }
+                Log.e("contesst--", upComingContests.toString())
+                val contestArray = gson.toJson(upComingContests)
+                editor.apply {
+                    putString("upcomingContest", contestArray)
+                    apply()
+                }
+            }
+        }
+        if (flag) return "Successful"
+        else return "UnSuccessful"
     }
 
     private fun dlg() {
@@ -97,7 +155,7 @@ class mainScreen : AppCompatActivity() {
         }
     }
 
-    private fun polulateResources(obj: Result) {
+    private fun populateCurrentPage(obj: Result) {
 
         // setImage Resource
         CoroutineScope(Dispatchers.IO).launch {
@@ -121,4 +179,5 @@ class mainScreen : AppCompatActivity() {
         userLastOnline.text =
             "lastOnline " + unixTimeToCurrTime(obj.lastOnlineTimeSeconds.toString())
     }
+
 }

@@ -46,7 +46,6 @@ class Login : AppCompatActivity() {
                 Log.e("msme", response.body().toString())
                 dialog.cancel() // remove dialog
                 val intent = Intent(applicationContext, mainScreen::class.java)
-//                val arr = ArrayList<com.example.codeforces.models.Result>()
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 val res = response.body()!!.result[0]
@@ -61,6 +60,7 @@ class Login : AppCompatActivity() {
 
             override fun onFailure(call: Call<userInfo>, t: Throwable) {
                 Log.e(this.toString(), "ERROr")
+                dialog.cancel()
             }
         })
     }
