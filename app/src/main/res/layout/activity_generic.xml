@@ -5,11 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#49535b"
     tools:context=".Screens.genericActivity">
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="3" />
+
+    <Button
+        android:id="@+id/changeFrag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="change Fragment" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="check"
+        android:textAlignment="center"
+        android:textSize="35sp" />
+
 </LinearLayout>

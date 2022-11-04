@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.item_image.*
 import java.io.IOException
 import com.example.codeforces.models.Result
 import com.example.codeforces.models.ResultX
+import com.example.codeforces.unixTimeToCurrTime
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.item_add.*
@@ -145,15 +146,7 @@ class mainScreen : AppCompatActivity() {
         }
     }
 
-    private fun unixTimeToCurrTime(time: String): String? {
-        try {
-            val simpleDateFor = SimpleDateFormat("MM/dd/yyyy")
-            val currDate = Date(time.toLong() * 1000)
-            return simpleDateFor.format(currDate)
-        } catch (e: IOException) {
-            return null
-        }
-    }
+
 
     private fun populateCurrentPage(obj: Result) {
 

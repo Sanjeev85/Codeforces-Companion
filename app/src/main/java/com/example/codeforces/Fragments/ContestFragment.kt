@@ -9,8 +9,10 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.codeforces.R
 import com.example.codeforces.adapters.contestAdapter
+import com.example.codeforces.convertTime
 import com.example.codeforces.models.ResultX
 import com.example.codeforces.models.singleContest
+import com.example.codeforces.unixTimeToCurrTime
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_contest.*
@@ -55,21 +57,6 @@ class ContestFragment : Fragment(R.layout.fragment_contest) {
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(view.context)
 
-
-    }
-
-    private fun convertTime(seconds: Int): String {
-        val minutes = seconds / 60
-        val hrs = minutes / 60
-        val rem_min = if ((minutes - hrs*60) == 0) "00" else (minutes - hrs*60).toString()
-        return hrs.toString() + " : " + rem_min
-    }
-
-    private fun unixTimeToCurrTime(time: String): String {
-
-        val simpleDateFor = SimpleDateFormat("dd/MM/yyyy")
-        val currDate = Date(time.toLong() * 1000)
-        return simpleDateFor.format(currDate)
 
     }
 }
