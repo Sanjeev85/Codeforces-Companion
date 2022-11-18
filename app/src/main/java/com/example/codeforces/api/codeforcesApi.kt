@@ -15,14 +15,8 @@ interface codeforcesApi {
 
 //    https://codeforces.com/api/user.status?handle=abhi5hekk
     @GET("/api/user.status")
-    fun getSolvedProblems(@Query("handle") user_handle: String) : Call<submissions>
-    /*
-    //    @GET("/api/user.rating")
-//    fun getUserRatingChanges(@Query("handle") user_name: String): Call<contestDetails>
-//
-//    @GET("/api/user.status")
-//    fun getUserSubmissions(@Query("handle") user_name: String): Call<userSubmission>
-     */
+    fun getSolvedProblems(@Query("handle") user_handle: String?) : Call<submissions>
+
     @GET("/api/contest.list")
     fun getContestList(): Call<Contests>
 //    https://codeforces.com/api/contest.list?gym=true

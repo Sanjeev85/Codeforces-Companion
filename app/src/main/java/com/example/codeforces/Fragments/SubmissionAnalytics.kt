@@ -1,19 +1,17 @@
 package com.example.codeforces.Fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.renderscript.Sampler.Value
-import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.TextView
 import com.example.codeforces.R
 import com.example.codeforces.api.codeforcesApi
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -21,39 +19,43 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 import java.util.TreeMap
-import kotlin.math.round
 
 
 class SubmissionAnalytics : Fragment(R.layout.fragment_submission_analytics) {
-    lateinit var handle: String
+    lateinit var sharedPref: SharedPreferences
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedPref = this.requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+
+        val handle = sharedPref.getString("userHandle", "")
+        view.findViewById<TextView>(R.id.problemTagstv).text = "Problem Tags Of $handle"
+        view.findViewById<TextView>(R.id.problemRatingtv).text = "Problem Rating Of $handle"
+
         GlobalScope.launch {
-            handle = "abhi5hekk"
             fetchProblems(handle)
         }
     }
 
-    suspend fun fetchProblems(handle: String) {
-        Log.e("", "BEFORE CALL")
+    suspend fun fetchProblems(handle: String?) {
         val hashMap = TreeMap<String, Int>()
         var sum = 0
         withContext(Dispatchers.IO) {
-            Log.e("Handle", " myHandle $handle")
+
             val api = codeforcesApi.create().getSolvedProblems(handle).awaitResponse()
 
-            // PieChart Data
+            // * PieChart Data
+
             for (i in api.body()!!.result.indices) {
                 val tags_ = api.body()!!.result[i].problem.tags
                 for (ele in tags_) {
@@ -62,7 +64,8 @@ class SubmissionAnalytics : Fragment(R.layout.fragment_submission_analytics) {
                 }
             }
 
-            // barChart Data
+            // * barChart Data
+
             val ratingWiseCount = TreeMap<Int, Int>()
 
             for (i in api.body()!!.result.indices) {
@@ -74,38 +77,32 @@ class SubmissionAnalytics : Fragment(R.layout.fragment_submission_analytics) {
                 }
             }
             showBarChart(ratingWiseCount)
-
-
-            Log.e("", "INSIDE CALL")
-            Log.e("After inside", "problems Rating ${ratingWiseCount}")
         }
-        Log.e(TAG, "AFTER CALL")
-        for ((key, value) in hashMap) {
+
+        for (value in hashMap.values) {
             sum += value
         }
-        Log.e(TAG, "sum = ${sum}")
+////        Log.e(TAG, "sum = ${sum}")
 
         showPieChart(hashMap, sum)
 
     }
 
     private fun showBarChart(problemRatingMap: TreeMap<Int, Int>) {
-        Log.e("", "BarChart Inside")
+//        Log.e("", "BarChart Inside")
         val data = ArrayList<BarEntry>().toMutableList()
         val labels = ArrayList<String>()
         labels.add("JingleBell")
 
-        for (key in problemRatingMap.keys) {
-            labels.add(key.toString())
+        var currIdx = 1
+        for (i in 800..2500 step 100) {
+            val curr_val = problemRatingMap.getOrDefault(i, 0)
+            labels.add(i.toString())
+            data.add(BarEntry(currIdx.toFloat(), curr_val!!.toFloat()))
+//            Log.e(" curr $i ", " map ${problemRatingMap.get(i)}")
+            currIdx ++
         }
-
-        Log.e("Lables", " = ${labels}")
-        val n = (2200 - 800) / 100
-        var i = 1
-        for ((key, value) in problemRatingMap) {
-            data.add(BarEntry(i.toFloat(), value.toFloat()))
-            i++
-        }
+        Log.e("map", problemRatingMap.toString())
         Log.e("ArrayList", " = ${data}")
 
 
@@ -127,10 +124,10 @@ class SubmissionAnalytics : Fragment(R.layout.fragment_submission_analytics) {
         barChart?.data = barData
         barchartDataset.colors = ColorTemplate.COLORFUL_COLORS.toMutableList()
 
-        //textColor
+        // * textColor
         barchartDataset.valueTextColor = Color.BLACK
 
-        //text size
+        // * text size
         barchartDataset.valueTextSize = 16f
         barChart?.description?.isEnabled = true
     }

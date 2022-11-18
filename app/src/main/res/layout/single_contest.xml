@@ -27,8 +27,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="TextView"
-            android:textColorHighlight="@color/white"
             android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
             android:textSize="15dp" />
 
         <TextView
@@ -40,6 +40,13 @@
             android:text="TextView"
             android:textColor="@color/white"
             android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/alarm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_alarm_24" />
 
     </LinearLayout>
 

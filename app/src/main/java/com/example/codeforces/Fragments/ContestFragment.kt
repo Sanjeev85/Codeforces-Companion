@@ -28,21 +28,22 @@ import kotlin.math.min
 
 class ContestFragment : Fragment(R.layout.fragment_contest) {
     lateinit var sharedPref: SharedPreferences
-    lateinit var editor: SharedPreferences.Editor
     lateinit var gson: Gson
+    lateinit var contestList: ArrayList<singleContest>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.e("Inside Fragment", "Frag")
+
         sharedPref = this.requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        editor = sharedPref.edit()
         gson = Gson()
+
+
         val contestJson = sharedPref.getString("upcomingContest", "")
         val itemType = object : TypeToken<List<ResultX>>() {}.type
         val lst = gson.fromJson<ArrayList<ResultX>>(
             contestJson, itemType
         )
         Log.e("From Fragment", lst.toString())
-        val contestList = arrayListOf<singleContest>()
+        contestList = arrayListOf()
         for (contest in lst) {
             contestList.add(
                 singleContest(
@@ -59,4 +60,6 @@ class ContestFragment : Fragment(R.layout.fragment_contest) {
 
 
     }
+
+
 }

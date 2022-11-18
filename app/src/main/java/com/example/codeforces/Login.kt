@@ -38,7 +38,7 @@ class Login : AppCompatActivity() {
 
     private fun fetchUser() {
         val api = codeforcesApi.create().getUser(handle.text.toString())
-        Log.e(this.toString(), "Start")
+//        Log.e(this.toString(), "Start")
         api.enqueue(object : Callback<userInfo> {
             override fun onResponse(call: Call<userInfo>, response: Response<userInfo>) {
                 Log.e(this.toString(), "Success")
@@ -52,9 +52,11 @@ class Login : AppCompatActivity() {
                 val jsonData = gson.toJson(res)
                 editor.apply {
                     putString("json", jsonData)
+                    putString("userHandle", handle.text.toString())
                     apply()
                 }
                 intent.putExtra("userResponse", jsonData)
+                intent.putExtra("userHandle", handle.text.toString())
                 applicationContext.startActivity(intent)
             }
 

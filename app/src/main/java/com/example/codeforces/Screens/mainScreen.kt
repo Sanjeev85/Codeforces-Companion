@@ -6,36 +6,37 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import com.example.codeforces.R
 import com.example.codeforces.api.codeforcesApi
-import com.example.codeforces.models.Contests
+import com.example.codeforces.getColorByRating
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_image.*
 import java.io.IOException
 import com.example.codeforces.models.Result
 import com.example.codeforces.models.ResultX
-import com.example.codeforces.unixTimeToCurrTime
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.item_add.*
+import kotlinx.android.synthetic.main.item_image.tvUserHandle
+import kotlinx.android.synthetic.main.item_image.userMaxRating
+import kotlinx.android.synthetic.main.profile_demo.*
 import kotlinx.coroutines.*
 import retrofit2.*
 import java.net.URL
-import java.text.SimpleDateFormat
-import java.util.Date
 
 class mainScreen : AppCompatActivity() {
     lateinit var sharedPref: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
     lateinit var gson: Gson
+
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_screen)
+        setContentView(R.layout.profile_demo)
         Log.e("MAINSCREEN", "ENTERED")
         // init
         sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
@@ -43,8 +44,8 @@ class mainScreen : AppCompatActivity() {
         gson = Gson()
 
 
-        // fetch shared Prefence Image
         val json = sharedPref.getString("json", "")
+        val jsonHandle = sharedPref.getString("userHandle", "").toString()
         val obj = gson.fromJson<Result>(
             json, Result::class.java
         )
@@ -57,41 +58,21 @@ class mainScreen : AppCompatActivity() {
             callEverything()
         }
         //upComing Contests
-        cc.setOnClickListener {
+        upcoming_contest.setOnClickListener {
             val intent = Intent(this@mainScreen, genericActivity::class.java)
             startActivity(intent)
             finish()
-            /*  GlobalScope.launch {
-                  withContext(Dispatchers.Main) {
-                      Log.e("CHAKRA", "UI")
-                      dlg()
-                      val api = codeforcesApi.create().getContestList().awaitResponse()
-                      if (api.isSuccessful) {
-                          for (i in 0..10) {
-                              Log.e("Success ", api.body()!!.result[i].toString())
-                          }
-                      }
-                  }
-              }
 
-             */
         }
     }
 
     private suspend fun callEverything() {
-        Log.e(TAG, "inside call everything")
+//        Log.e(TAG, "inside call everything")
         val status = getUpcomingContest()
         if (status == "UnSuccessful") {
             Log.e("Status", "Success upcoming Contest")
         }
-        /*
-        val contestArray = gson.toJson(upComingContests)
-        editor.apply {
-            putString("upcomingContest", contestArray)
-            apply()
-        }
 
-         */
     }
 
     private suspend fun getUpcomingContest(): String {
@@ -147,7 +128,6 @@ class mainScreen : AppCompatActivity() {
     }
 
 
-
     private fun populateCurrentPage(obj: Result) {
 
         // setImage Resource
@@ -158,19 +138,20 @@ class mainScreen : AppCompatActivity() {
             }
         }
 
-        // sethandle
-        userHandle.apply {
+        tvUserHandle.apply {
             text = obj.handle
-            setTextColor(Color.GREEN)
+            setTextColor(getColorByRating(obj.rating))
         }
-        userRank.text = obj.rank
-        userMaxRank.apply {
-            text = "maxRank " + obj.maxRank
-            setTextColor(Color.GREEN)
+
+        tvUserHandle.setTextColor(getColorByRating(obj.maxRating))
+        userMaxRating.text = buildString {
+            append(obj.maxRank)
+            append("( ")
+            append(obj.maxRating)
+            append(" )")
         }
-        userMaxRating.text = "maxRating " + obj.maxRating.toString()
-        userLastOnline.text =
-            "lastOnline " + unixTimeToCurrTime(obj.lastOnlineTimeSeconds.toString())
+
+        userMaxRating.setTextColor(getColorByRating(obj.rating))
     }
 
 }
