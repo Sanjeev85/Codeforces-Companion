@@ -14,10 +14,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Codeforces"
         tools:targetApi="31">
+        <activity
+            android:name=".ContestAnalysis"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Analytics"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".contestList"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <service
             android:name=".downloadData"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".Screens.genericActivity"
@@ -27,7 +49,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Screens.mainScreen"
+            android:name=".mainScreen"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

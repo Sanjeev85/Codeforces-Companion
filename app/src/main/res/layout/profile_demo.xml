@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     android:orientation="vertical"
-    tools:context=".Screens.mainScreen">
+    tools:context=".mainScreen">
 
 
     <LinearLayout
@@ -158,6 +158,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ContestHistory"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_margin="1dp"
@@ -198,6 +199,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/submissions"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_margin="1dp"

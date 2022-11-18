@@ -1,4 +1,4 @@
-package com.example.codeforces.Screens
+package com.example.codeforces
 
 import android.app.Dialog
 import android.content.Context
@@ -10,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
-import com.example.codeforces.R
-import com.example.codeforces.api.codeforcesApi
-import com.example.codeforces.getColorByRating
+import com.example.codeforces.Screens.genericActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_image.*
 import java.io.IOException
@@ -37,7 +35,6 @@ class mainScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile_demo)
-        Log.e("MAINSCREEN", "ENTERED")
         // init
         sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         editor = sharedPref.edit()
@@ -49,20 +46,27 @@ class mainScreen : AppCompatActivity() {
         val obj = gson.fromJson<Result>(
             json, Result::class.java
         )
-        Log.e("inside mainScreen", obj.toString())
         populateCurrentPage(obj)
 
         // call all api's
         GlobalScope.launch {
-            Log.e("Launced", "call Everything")
             callEverything()
         }
         //upComing Contests
         upcoming_contest.setOnClickListener {
-            val intent = Intent(this@mainScreen, genericActivity::class.java)
+            val intent = Intent(this@mainScreen, contestList::class.java)
             startActivity(intent)
             finish()
+        }
 
+        ContestHistory.setOnClickListener {
+
+        }
+
+        submissions.setOnClickListener {
+            val intent = Intent(this, Analytics::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

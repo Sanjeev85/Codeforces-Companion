@@ -1,4 +1,4 @@
-package com.example.codeforces.api
+package com.example.codeforces
 
 import com.example.codeforces.models.Contests
 import com.example.codeforces.models.submissions

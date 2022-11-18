@@ -1,51 +1,44 @@
-package com.example.codeforces.Fragments
+package com.example.codeforces
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.View
-import android.widget.TextView
-import com.example.codeforces.R
-import com.example.codeforces.codeforcesApi
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_submission_analytics.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
-import java.util.TreeMap
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
-
-class SubmissionAnalytics : Fragment(R.layout.fragment_submission_analytics) {
-    lateinit var sharedPref: SharedPreferences
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        sharedPref = this.requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+class Analytics : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_analytics)
+        sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
 
         val handle = sharedPref.getString("userHandle", "")
-        view.findViewById<TextView>(R.id.problemTagstv).text = "Problem Tags Of $handle"
-        view.findViewById<TextView>(R.id.problemRatingtv).text = "Problem Rating Of $handle"
+        (problemTagstv).text = "Problem Tags Of $handle"
+        (problemRatingtv).text = "Problem Rating Of $handle"
 
         GlobalScope.launch {
             fetchProblems(handle)
         }
     }
+
+    lateinit var sharedPref: SharedPreferences
+
 
     suspend fun fetchProblems(handle: String?) {
         val hashMap = TreeMap<String, Int>()
@@ -82,14 +75,12 @@ class SubmissionAnalytics : Fragment(R.layout.fragment_submission_analytics) {
         for (value in hashMap.values) {
             sum += value
         }
-////        Log.e(TAG, "sum = ${sum}")
 
         showPieChart(hashMap, sum)
 
     }
 
     private fun showBarChart(problemRatingMap: TreeMap<Int, Int>) {
-//        Log.e("", "BarChart Inside")
         val data = ArrayList<BarEntry>().toMutableList()
         val labels = ArrayList<String>()
         labels.add("JingleBell")
@@ -99,14 +90,11 @@ class SubmissionAnalytics : Fragment(R.layout.fragment_submission_analytics) {
             val curr_val = problemRatingMap.getOrDefault(i, 0)
             labels.add(i.toString())
             data.add(BarEntry(currIdx.toFloat(), curr_val!!.toFloat()))
-//            Log.e(" curr $i ", " map ${problemRatingMap.get(i)}")
-            currIdx ++
+            currIdx++
         }
-        Log.e("map", problemRatingMap.toString())
-        Log.e("ArrayList", " = ${data}")
 
 
-        val barChart = view?.findViewById<BarChart>(R.id.barchart)
+        val barChart = findViewById<BarChart>(R.id.barchart)
         val x_axisLabel = barChart?.xAxis
         x_axisLabel?.apply {
             position = XAxis.XAxisPosition.BOTTOM
@@ -152,9 +140,9 @@ class SubmissionAnalytics : Fragment(R.layout.fragment_submission_analytics) {
         val pieData = PieData(pieDataSet)
         pieData.setDrawValues(true)
 
-        val pieChart = view?.findViewById<PieChart>(R.id.pie)
+        val pieChart = findViewById<PieChart>(R.id.pie)
         pieChart?.setData(pieData)
         pieChart?.invalidate()
     }
-
 }
+

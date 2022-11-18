@@ -1,32 +1,25 @@
-package com.example.codeforces.Fragments
+package com.example.codeforces
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.codeforces.R
-import com.example.codeforces.contestAdapter
-import com.example.codeforces.convertTime
 import com.example.codeforces.models.ResultX
 import com.example.codeforces.models.singleContest
-import com.example.codeforces.unixTimeToCurrTime
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_contest.*
-import kotlin.collections.ArrayList
 
-
-class ContestFragment : Fragment(R.layout.fragment_contest) {
+class contestList : AppCompatActivity() {
     lateinit var sharedPref: SharedPreferences
     lateinit var gson: Gson
     lateinit var contestList: ArrayList<singleContest>
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_contest_list)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        sharedPref = this.requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         gson = Gson()
 
 
@@ -35,7 +28,7 @@ class ContestFragment : Fragment(R.layout.fragment_contest) {
         val lst = gson.fromJson<ArrayList<ResultX>>(
             contestJson, itemType
         )
-        Log.e("From Fragment", lst.toString())
+//        Log.e("From Fragment", lst.toString())
         contestList = arrayListOf()
         for (contest in lst) {
             contestList.add(
@@ -49,10 +42,7 @@ class ContestFragment : Fragment(R.layout.fragment_contest) {
 
         val adapter = contestAdapter(contestList)
         rv.adapter = adapter
-        rv.layoutManager = LinearLayoutManager(view.context)
-
+        rv.layoutManager = LinearLayoutManager(this)
 
     }
-
-
 }
