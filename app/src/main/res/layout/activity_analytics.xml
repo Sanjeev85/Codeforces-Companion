@@ -22,9 +22,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/lato_bold"
                 android:text="problems By Tags"
                 android:textColor="@color/black"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
         </androidx.cardview.widget.CardView>
 
         <com.github.mikephil.charting.charts.PieChart
@@ -42,15 +43,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/lato_black"
                 android:text="problems By Ratings"
                 android:textColor="@color/black"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
         </androidx.cardview.widget.CardView>
 
-        <com.github.mikephil.charting.charts.BarChart
+        <com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/barchart"
             android:layout_width="match_parent"
-            android:layout_height="500dp" />
+            android:layout_height="500dp"
+            android:layoutDirection="ltr" />
 
 
     </LinearLayout>

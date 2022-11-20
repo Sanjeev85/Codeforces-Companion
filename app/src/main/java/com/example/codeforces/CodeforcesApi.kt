@@ -1,6 +1,7 @@
 package com.example.codeforces
 
 import com.example.codeforces.models.Contests
+import com.example.codeforces.models.ratingChanges
 import com.example.codeforces.models.submissions
 import com.example.codeforces.models.userInfo
 import retrofit2.Call
@@ -20,6 +21,9 @@ interface codeforcesApi {
     @GET("/api/contest.list")
     fun getContestList(): Call<Contests>
 //    https://codeforces.com/api/contest.list?gym=true
+
+    @GET("/api/user.rating")
+    fun getRatingChanges(@Query("handle") user_handle: String?): Call<ratingChanges>
 
     companion object {
         var BASE_URL = "https://codeforces.com/"

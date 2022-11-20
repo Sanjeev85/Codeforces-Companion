@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.codeforces.models.ResultX
+import com.example.codeforces.models.new_item
 import com.example.codeforces.models.singleContest
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_contest.*
 class contestList : AppCompatActivity() {
     lateinit var sharedPref: SharedPreferences
     lateinit var gson: Gson
-    lateinit var contestList: ArrayList<singleContest>
+    lateinit var contestList: ArrayList<new_item>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contest_list)
@@ -32,15 +33,14 @@ class contestList : AppCompatActivity() {
         contestList = arrayListOf()
         for (contest in lst) {
             contestList.add(
-                singleContest(
+                new_item(
                     contest.name,
-                    convertTime(contest.durationSeconds),
                     unixTimeToCurrTime(contest.startTimeSeconds.toString())
                 )
             )
         }
 
-        val adapter = contestAdapter(contestList)
+        val adapter = adapter(contestList)
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(this)
 

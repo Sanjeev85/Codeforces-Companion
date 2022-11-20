@@ -25,9 +25,7 @@ class contestAdapter(private val contestList: ArrayList<singleContest>) :
             textView1.text = currContest.item2
             textView2.text = currContest.item1
             textView3.text = currContest.item3
-            alarm.setOnClickListener {
 
-            }
         }
     }
 

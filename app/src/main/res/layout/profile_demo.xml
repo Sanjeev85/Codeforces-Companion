@@ -117,10 +117,11 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:background="@drawable/contest_background"
             android:id="@+id/upcoming_contest"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_margin="1dp"
+            android:layout_margin="3dp"
             android:orientation="horizontal"
             android:padding="5dp">
 
@@ -158,10 +159,11 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:background="@drawable/contest_background"
             android:id="@+id/ContestHistory"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_margin="1dp"
+            android:layout_margin="3dp"
             android:orientation="horizontal"
             android:padding="5dp">
 
@@ -200,9 +202,10 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/submissions"
+            android:background="@drawable/contest_background"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_margin="1dp"
+            android:layout_margin="3dp"
             android:orientation="horizontal"
             android:padding="5dp">
 
