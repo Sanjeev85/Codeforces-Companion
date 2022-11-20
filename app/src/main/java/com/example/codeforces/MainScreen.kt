@@ -23,10 +23,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class mainScreen : AppCompatActivity() {
-    lateinit var sharedPref: SharedPreferences
-    lateinit var editor: SharedPreferences.Editor
-    lateinit var gson: Gson
-    lateinit var jsonHandle: String
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var gson: Gson
+    private lateinit var jsonHandle: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +43,11 @@ class mainScreen : AppCompatActivity() {
         }
         val json = sharedPref.getString("json", "")
         jsonHandle = sharedPref.getString("userHandle", "").toString()
-        val obj = gson.fromJson<Result>(
-            json, Result::class.java
-        )
+        val obj = gson.fromJson(json, Result::class.java)
+
+        "$jsonHandle Profile".also { profileName.text = it }
+        val dt = intent.getStringExtra("lastOnline")
+        date.text = dt
         populateCurrentPage(obj)
 
         // call all api's
@@ -169,7 +171,7 @@ class mainScreen : AppCompatActivity() {
     }
 
     private fun getImageFromUrl(src: String): Bitmap? {
-        try {
+        return try {
             val url = URL(src)
             val httpConn = url.openConnection()
             httpConn.apply {
@@ -178,11 +180,11 @@ class mainScreen : AppCompatActivity() {
             }
             val inputStream = httpConn.getInputStream()
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            return bitmap
+            bitmap
         } catch (e: IOException) {
             e.printStackTrace()
             Log.e("exception", e.message.toString())
-            return null
+            null
         }
     }
 

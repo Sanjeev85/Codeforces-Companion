@@ -7,9 +7,11 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import com.example.codeforces.models.userInfo
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.profile_demo.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,6 +49,9 @@ class Login : AppCompatActivity() {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 val res = response.body()!!.result[0]
+//                val dt = findViewById<TextView>(R.id.date)
+//                dt.text = unixTimeToCurrTime(res.lastOnlineTimeSeconds.toString())
+
                 val jsonData = gson.toJson(res)
                 editor.apply {
                     putString("json", jsonData)
@@ -55,6 +60,7 @@ class Login : AppCompatActivity() {
                 }
                 intent.putExtra("userResponse", jsonData)
                 intent.putExtra("userHandle", handle.text.toString())
+                intent.putExtra("lastOnline", unixTimeToCurrTime(res.lastOnlineTimeSeconds.toString()))
                 applicationContext.startActivity(intent)
             }
 

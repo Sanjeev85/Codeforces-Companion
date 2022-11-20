@@ -38,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/lato_black"
                 android:gravity="bottom"
                 android:text="User Handle"
                 android:textColor="@color/black"
@@ -48,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/lato_black"
                 android:gravity="center"
                 android:text="Master (1600)"
                 android:textColor="@color/black"
@@ -67,24 +69,42 @@
         android:fontFamily="monospace"
         android:text="Status/LastOnline"
         android:textColor="@color/black"
+        android:textSize="18sp"
         tools:layout_editor_absoluteX="12dp"
         tools:layout_editor_absoluteY="145dp" />
 
+
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        tools:layout_editor_absoluteY="174dp">
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="15dp">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_add" />
+            <ImageView
+                android:id="@+id/imageButton3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="#05EA0E" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/lato_black"
+                android:gravity="center"
+                android:text="Date"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+
 
     <TextView
         android:id="@+id/dashboard"
@@ -232,6 +252,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
+        android:id="@+id/profileName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
