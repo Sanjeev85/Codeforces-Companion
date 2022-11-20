@@ -10,7 +10,7 @@ import com.example.codeforces.models.new_item
 import com.example.codeforces.models.singleContest
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.fragment_contest.*
+import kotlinx.android.synthetic.main.activity_contest_list.*
 
 class contestList : AppCompatActivity() {
     lateinit var sharedPref: SharedPreferences

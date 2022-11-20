@@ -10,19 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
-import com.example.codeforces.Screens.genericActivity
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.item_image.*
 import java.io.IOException
 import com.example.codeforces.models.Result
 import com.example.codeforces.models.ResultX
 import com.example.codeforces.models.ResultXXX
-import com.example.codeforces.models.ratingChanges
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_main_screen.*
-import kotlinx.android.synthetic.main.item_add.*
-import kotlinx.android.synthetic.main.item_image.tvUserHandle
-import kotlinx.android.synthetic.main.item_image.userMaxRating
 import kotlinx.android.synthetic.main.profile_demo.*
 import kotlinx.coroutines.*
 import retrofit2.*
@@ -45,7 +37,10 @@ class mainScreen : AppCompatActivity() {
         editor = sharedPref.edit()
         gson = Gson()
 
-
+        switchAccount.setOnClickListener {
+            startActivity(Intent(this, Login::class.java))
+            finish()
+        }
         val json = sharedPref.getString("json", "")
         jsonHandle = sharedPref.getString("userHandle", "").toString()
         val obj = gson.fromJson<Result>(
@@ -78,12 +73,7 @@ class mainScreen : AppCompatActivity() {
     }
 
     private suspend fun callEverything() {
-//        Log.e(TAG, "inside call everything")
         val status = fetchAllData()
-//        if (status == "UnSuccessful") {
-//            Log.e("Status", "Success upcoming Contest")
-//        }
-
     }
 
     private suspend fun fetchAllData() {
