@@ -1,10 +1,16 @@
 package com.example.codeforces
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context.ALARM_SERVICE
+import android.content.Intent
+import android.provider.ContactsContract.CommonDataKinds.Im
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.example.codeforces.models.new_item
 import kotlinx.android.synthetic.main.new_item.view.*
@@ -25,6 +31,7 @@ class adapter(private val contestList: ArrayList<new_item>) :
             start_date.text = currContest.start_date
         }
     }
+
 
     override fun getItemCount(): Int {
         return contestList.size

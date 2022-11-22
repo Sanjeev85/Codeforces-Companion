@@ -16,6 +16,9 @@ class contestList : AppCompatActivity() {
     lateinit var sharedPref: SharedPreferences
     lateinit var gson: Gson
     lateinit var contestList: ArrayList<new_item>
+    lateinit var editor: SharedPreferences.Editor
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contest_list)

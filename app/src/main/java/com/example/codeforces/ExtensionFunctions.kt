@@ -12,7 +12,7 @@ fun convertTime(seconds: Int): String {
 }
 
 fun unixTimeToCurrTime(time: String): String {
-    val simpleDateFor = SimpleDateFormat("dd/MM/yyyy")
+    val simpleDateFor = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
     val currDate = Date(time.toLong() * 1000)
     return simpleDateFor.format(currDate)
 }

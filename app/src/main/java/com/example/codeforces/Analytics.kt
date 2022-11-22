@@ -23,8 +23,8 @@ import kotlin.collections.HashMap
 
 class Analytics : AppCompatActivity() {
     lateinit var sharedPref: SharedPreferences
-    lateinit var editor: Editor
     lateinit var gson: Gson
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_analytics)
