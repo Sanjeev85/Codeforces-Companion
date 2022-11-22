@@ -1,274 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    android:orientation="vertical"
-    tools:context=".mainScreen">
+    android:layout_height="match_parent">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="#fff"
+        android:orientation="vertical"
+        tools:context=".mainScreen">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
-            android:layout_height="120dp"
-            app:cardCornerRadius="25dp">
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                tools:srcCompat="@tools:sample/avatars" />
-
-        </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="25dp"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvUserHandle"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/lato_black"
-                android:gravity="bottom"
-                android:text="User Handle"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="25dp">
 
-            <TextView
-                android:id="@+id/userMaxRating"
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/lato_black"
-                android:gravity="center"
-                android:text="Master (1600)"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvUserHandle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lato_black"
+                    android:gravity="bottom"
+                    android:text="User Handle"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/userMaxRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lato_black"
+                    android:gravity="center"
+                    android:text="Master (1600)"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="monospace"
+            android:text="Status/LastOnline"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="12dp"
+            tools:layout_editor_absoluteY="145dp" />
 
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="monospace"
-        android:text="Status/LastOnline"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="145dp" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="15dp">
 
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="15dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageButton3"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="#05EA0E" />
-
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/lato_black"
-                android:gravity="center"
-                android:text="Date"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-    <TextView
-        android:id="@+id/dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="31dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/lato_bold"
-        android:text="Dashboard"
-        android:textColor="@color/black"
-        android:textSize="25sp" />
-
-    <!--    Navigation Items-->
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/upcoming_contest"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="3dp"
-            android:background="@drawable/contest_background"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="90dp"
-                android:layout_height="150dp"
-                android:layout_weight="2"
-                app:cardCornerRadius="55dp">
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="99dp"
-                    android:layout_height="99dp"
-                    android:background="@color/ic_upcoming_contests_background"
-                    android:src="@drawable/ic_upcoming_contests_foreground" />
-            </androidx.cardview.widget.CardView>
+                    android:id="@+id/imageButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="#05EA0E" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="5"
-                android:fontFamily="monospace"
-                android:gravity="left"
-                android:paddingLeft="15dp"
-                android:text="UpComing Contests"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/lato_black"
+                    android:gravity="center"
+                    android:text="Date"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+            </RelativeLayout>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_upcoming_contest" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Dashboard"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <!--    Navigation Items-->
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/ContestHistory"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="3dp"
-            android:background="@drawable/contest_background"
-            android:orientation="horizontal"
-            android:padding="5dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="90dp"
-                android:layout_height="150dp"
-                android:layout_weight="2"
-                app:cardCornerRadius="55dp">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/upcoming_contest"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/contest_background"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="99dp"
-                    android:layout_height="99dp"
-                    android:background="@color/ic_history_contest_background"
-                    android:src="@drawable/ic_history_contest_foreground" />
-            </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="2"
+                    app:cardCornerRadius="55dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="5"
-                android:fontFamily="monospace"
-                android:gravity="left"
-                android:paddingLeft="15dp"
-                android:text="Contest History"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
+                    <ImageView
+                        android:layout_width="99dp"
+                        android:layout_height="99dp"
+                        android:background="@color/ic_upcoming_contests_background"
+                        android:src="@drawable/ic_upcoming_contests_foreground" />
+                </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_contest_history" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
+                    android:fontFamily="monospace"
+                    android:gravity="left"
+                    android:paddingLeft="15dp"
+                    android:text="UpComing Contests"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_upcoming_contest" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ContestHistory"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/contest_background"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="2"
+                    app:cardCornerRadius="55dp">
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterView
+                        android:layout_width="99dp"
+                        android:layout_height="99dp"
+                        android:background="@color/ic_history_contest_background"
+                        android:src="@drawable/ic_history_contest_foreground" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
+                    android:fontFamily="monospace"
+                    android:gravity="left"
+                    android:paddingLeft="15dp"
+                    android:text="Contest History"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_contest_history" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/submissions"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="3dp"
+                android:background="@drawable/contest_background"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="2"
+                    app:cardCornerRadius="55dp">
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterView
+                        android:layout_width="99dp"
+                        android:layout_height="99dp"
+                        android:background="@color/ic_analytics_contest_background"
+                        android:src="@drawable/ic_analytics_contest_foreground" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
+                    android:fontFamily="monospace"
+                    android:gravity="left"
+                    android:paddingLeft="15dp"
+                    android:text="Submission Analytics"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_baseline_analytics_24" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/submissions"
+        <TextView
+            android:id="@+id/profileName"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="3dp"
-            android:background="@drawable/contest_background"
-            android:orientation="horizontal"
-            android:padding="5dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="My Profile"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="90dp"
-                android:layout_height="150dp"
-                android:layout_weight="2"
-                app:cardCornerRadius="55dp">
+        <TextView
+            android:id="@+id/switchAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Switch Me To Other Account"
+            android:textColor="#427afe"
+            android:textSize="20sp" />
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="99dp"
-                    android:layout_height="99dp"
-                    android:background="@color/ic_analytics_contest_background"
-                    android:src="@drawable/ic_analytics_contest_foreground" />
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="5"
-                android:fontFamily="monospace"
-                android:gravity="left"
-                android:paddingLeft="15dp"
-                android:text="Submission Analytics"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_baseline_analytics_24" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <TextView
-        android:id="@+id/profileName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/lato_bold"
-        android:text="My Profile"
-        android:textColor="@color/black"
-        android:textSize="25sp" />
-
-    <TextView
-        android:id="@+id/switchAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/lato_bold"
-        android:text="Switch Me To Other Account"
-        android:textColor="#427afe"
-        android:textSize="20sp" />
-
+    </LinearLayout>
 </LinearLayout>
