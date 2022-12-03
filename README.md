@@ -11,3 +11,5 @@
 2. Retrofit (For fetching api).
 3. Couroutines.
 
+
+![CodeforcesCompanion](https://user-images.githubusercontent.com/54615519/205462252-64271922-3f04-4bbd-9438-c97a81687218.gif)
